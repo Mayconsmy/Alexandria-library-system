@@ -1,0 +1,545 @@
+{
+  "info": {
+    "name": "Clube de Leitura — Alexandria",
+    "description": "Coleção completa de endpoints da API do Sistema de Clubes de Leitura.\n\nAutenticação: Após fazer login, o token JWT é automaticamente atribuído à variável de coleção `token`.\n\nBase URL: http://localhost:8080/api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "description": "Endpoints públicos de autenticação",
+      "item": [
+        {
+          "name": "Cadastro",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    pm.test('Cadastro realizado com sucesso', () => {",
+                  "        pm.response.to.have.status(201);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Novo Usuário\",\n  \"email\": \"novo@email.com\",\n  \"senha\": \"Senha@123\",\n  \"fotoPerfil\": null,\n  \"tipoPerfil\": \"leitor\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/cadastro",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "cadastro"]
+            },
+            "description": "Cadastra um novo usuário. Público."
+          },
+          "response": [
+            {
+              "name": "Sucesso",
+              "status": "Created",
+              "code": 201,
+              "header": [],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"id\": 6,\n    \"nome\": \"Novo Usuário\",\n    \"email\": \"novo@email.com\",\n    \"fotoPerfil\": null,\n    \"tipoPerfil\": \"leitor\",\n    \"dataCadastro\": \"2026-06-13\"\n  }\n}"
+            },
+            {
+              "name": "Email já cadastrado",
+              "status": "Conflict",
+              "code": 409,
+              "header": [],
+              "body": "{\n  \"status\": \"error\",\n  \"message\": \"Email já cadastrado\",\n  \"code\": 409\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.collectionVariables.set('token', jsonData.data.token);",
+                  "    pm.test('Token armazenado na variável de coleção', () => {",
+                  "        pm.expect(jsonData.data.token).to.not.be.empty;",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@clubeleitura.com\",\n  \"senha\": \"Senha@123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Realiza login e armazena o token JWT na variável de coleção `token`. Público."
+          },
+          "response": [
+            {
+              "name": "Sucesso",
+              "status": "OK",
+              "code": 200,
+              "header": [],
+              "body": "{\n  \"status\": \"success\",\n  \"data\": {\n    \"token\": \"eyJhbGciOiJIUzI1NiJ9...\",\n    \"tipo\": \"Bearer\",\n    \"email\": \"admin@clubeleitura.com\",\n    \"nome\": \"Admin\",\n    \"id\": 1\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Livros",
+      "description": "CRUD de livros. GET /listar e GET /{id} são públicos; POST, PUT, DELETE exigem autenticação.",
+      "item": [
+        {
+          "name": "Listar Livros",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/livros",
+              "host": ["{{base_url}}"],
+              "path": ["livros"],
+              "query": [
+                { "key": "titulo", "value": "", "disabled": true },
+                { "key": "autor", "value": "", "disabled": true },
+                { "key": "genero", "value": "", "disabled": true }
+              ]
+            },
+            "description": "Lista todos os livros. Filtros opcionais por título, autor ou gênero. Público."
+          }
+        },
+        {
+          "name": "Buscar Livro por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/livros/1",
+              "host": ["{{base_url}}"],
+              "path": ["livros", "1"]
+            },
+            "description": "Busca um livro pelo ID. Público."
+          }
+        },
+        {
+          "name": "Criar Livro",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"O Senhor dos Anéis\",\n  \"autor\": \"J.R.R. Tolkien\",\n  \"genero\": \"Fantasia\",\n  \"descricao\": \"Uma épica jornada pela Terra Média.\",\n  \"tipo\": \"livro\",\n  \"dataPublicacao\": \"1954-07-29\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/livros",
+              "host": ["{{base_url}}"],
+              "path": ["livros"]
+            },
+            "description": "Cria um novo livro. Requer autenticação."
+          }
+        },
+        {
+          "name": "Atualizar Livro",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"titulo\": \"O Senhor dos Anéis — Atualizado\",\n  \"autor\": \"J.R.R. Tolkien\",\n  \"genero\": \"Fantasia\",\n  \"descricao\": \"Edição revisada.\",\n  \"tipo\": \"livro\",\n  \"dataPublicacao\": \"1954-07-29\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/livros/1",
+              "host": ["{{base_url}}"],
+              "path": ["livros", "1"]
+            },
+            "description": "Atualiza os dados de um livro. Requer autenticação."
+          }
+        },
+        {
+          "name": "Deletar Livro",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/livros/1",
+              "host": ["{{base_url}}"],
+              "path": ["livros", "1"]
+            },
+            "description": "Remove um livro pelo ID. Requer autenticação."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leituras",
+      "description": "Registro de leituras pelos usuários. Requer autenticação.",
+      "item": [
+        {
+          "name": "Listar Leituras por Usuário",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/leituras/usuario/1",
+              "host": ["{{base_url}}"],
+              "path": ["leituras", "usuario", "1"]
+            },
+            "description": "Lista as leituras de um usuário específico."
+          }
+        },
+        {
+          "name": "Registrar Leitura",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 1,\n  \"idLivro\": 1,\n  \"status\": \"lendo\",\n  \"dataInicio\": \"2026-06-01\",\n  \"dataFim\": null\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/leituras",
+              "host": ["{{base_url}}"],
+              "path": ["leituras"]
+            },
+            "description": "Registra um novo progresso de leitura."
+          }
+        },
+        {
+          "name": "Atualizar Leitura",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 1,\n  \"idLivro\": 1,\n  \"status\": \"concluido\",\n  \"dataInicio\": \"2026-06-01\",\n  \"dataFim\": \"2026-06-13\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/leituras/1",
+              "host": ["{{base_url}}"],
+              "path": ["leituras", "1"]
+            },
+            "description": "Atualiza o status ou datas de uma leitura."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Grupos",
+      "description": "Gerenciamento de grupos de leitura. Requer autenticação.",
+      "item": [
+        {
+          "name": "Listar Grupos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/grupos",
+              "host": ["{{base_url}}"],
+              "path": ["grupos"],
+              "query": [
+                { "key": "nome", "value": "", "disabled": true }
+              ]
+            },
+            "description": "Lista todos os grupos. Filtro opcional por nome."
+          }
+        },
+        {
+          "name": "Buscar Grupo por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/grupos/1",
+              "host": ["{{base_url}}"],
+              "path": ["grupos", "1"]
+            },
+            "description": "Busca um grupo pelo ID."
+          }
+        },
+        {
+          "name": "Criar Grupo",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Clube do Livro de Ficção\",\n  \"descricao\": \"Grupo dedicado a livros de ficção científica e fantasia\",\n  \"privado\": false,\n  \"idAdmin\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/grupos",
+              "host": ["{{base_url}}"],
+              "path": ["grupos"]
+            },
+            "description": "Cria um novo grupo de leitura."
+          }
+        },
+        {
+          "name": "Entrar em Grupo",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 2\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/grupos/1/entrar",
+              "host": ["{{base_url}}"],
+              "path": ["grupos", "1", "entrar"]
+            },
+            "description": "Usuário ingressa em um grupo."
+          }
+        },
+        {
+          "name": "Listar Mensagens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/grupos/1/mensagens",
+              "host": ["{{base_url}}"],
+              "path": ["grupos", "1", "mensagens"]
+            },
+            "description": "Lista as mensagens de um grupo."
+          }
+        },
+        {
+          "name": "Enviar Mensagem",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 1,\n  \"conteudo\": \"Olá pessoal, vamos começar a leitura do próximo livro!\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/grupos/1/mensagens",
+              "host": ["{{base_url}}"],
+              "path": ["grupos", "1", "mensagens"]
+            },
+            "description": "Envia uma mensagem em um grupo."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resenhas",
+      "description": "Resenhas e avaliações de livros. Requer autenticação.",
+      "item": [
+        {
+          "name": "Listar Resenhas por Livro",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/resenhas/livro/1",
+              "host": ["{{base_url}}"],
+              "path": ["resenhas", "livro", "1"]
+            },
+            "description": "Lista todas as resenhas de um livro."
+          }
+        },
+        {
+          "name": "Criar Resenha",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 1,\n  \"idLivro\": 1,\n  \"texto\": \"Um clássico atemporal. Machado de Assis nos presenteia com uma narrativa rica em detalhes e reviravoltas.\",\n  \"nota\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/resenhas",
+              "host": ["{{base_url}}"],
+              "path": ["resenhas"]
+            },
+            "description": "Cria uma nova resenha para um livro."
+          }
+        },
+        {
+          "name": "Atualizar Resenha",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 1,\n  \"idLivro\": 1,\n  \"texto\": \"Resenha atualizada com novas impressões.\",\n  \"nota\": 4\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/resenhas/1",
+              "host": ["{{base_url}}"],
+              "path": ["resenhas", "1"]
+            },
+            "description": "Atualiza uma resenha existente."
+          }
+        },
+        {
+          "name": "Deletar Resenha",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/resenhas/1",
+              "host": ["{{base_url}}"],
+              "path": ["resenhas", "1"]
+            },
+            "description": "Remove uma resenha pelo ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Metas",
+      "description": "Metas de leitura dos usuários. Requer autenticação.",
+      "item": [
+        {
+          "name": "Listar Metas por Usuário",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/metas/usuario/1",
+              "host": ["{{base_url}}"],
+              "path": ["metas", "usuario", "1"]
+            },
+            "description": "Lista as metas de leitura de um usuário."
+          }
+        },
+        {
+          "name": "Criar Meta",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 1,\n  \"quantidadeLivros\": 12,\n  \"prazo\": \"2026-12-31T23:59:59\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/metas",
+              "host": ["{{base_url}}"],
+              "path": ["metas"]
+            },
+            "description": "Cria uma nova meta de leitura."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notificações",
+      "description": "Notificações dos usuários. Requer autenticação.",
+      "item": [
+        {
+          "name": "Listar Notificações por Usuário",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/notificacoes/usuario/1",
+              "host": ["{{base_url}}"],
+              "path": ["notificacoes", "usuario", "1"]
+            },
+            "description": "Lista as notificações de um usuário."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Estatísticas",
+      "description": "Estatísticas dos usuários. Requer autenticação.",
+      "item": [
+        {
+          "name": "Buscar Estatísticas do Usuário",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/estatisticas/usuario/1",
+              "host": ["{{base_url}}"],
+              "path": ["estatisticas", "usuario", "1"]
+            },
+            "description": "Retorna estatísticas de leitura de um usuário."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuários",
+      "description": "Perfil de usuários. Requer autenticação.",
+      "item": [
+        {
+          "name": "Buscar Usuário por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/usuarios/1",
+              "host": ["{{base_url}}"],
+              "path": ["usuarios", "1"]
+            },
+            "description": "Busca os dados de um usuário pelo ID."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Clube de Leitura</title>
+  <link rel="stylesheet" href="assets/css/pages/auth.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <h1><span>Alexandria</span></h1>
+        <p>Clube de Leitura</p>
+      </div>
+
+      <div id="loginError" class="auth-error hidden"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="seu@email.com" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" placeholder="Sua senha" required>
+        </div>
+
+        <button type="submit" class="btn-primary">Entrar</button>
+      </form>
+
+      <div class="auth-link">
+        Ainda não tem conta? <a href="pages/cadastro.html">Cadastre-se</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/utils/constants.js"></script>
+  <script src="assets/js/api/api.js"></script>
+  <script src="assets/js/pages/login.js"></script>
+</body>
+</html>

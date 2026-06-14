@@ -1,0 +1,27 @@
+# Java / Maven
+leitura-backend/target/
+*.class
+*.jar
+*.war
+*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+.metadata
+bin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+*.env.local
+
+# Node
+leitura-frontend/node_modules/

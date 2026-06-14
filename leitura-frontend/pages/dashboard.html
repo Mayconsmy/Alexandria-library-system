@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Clube de Leitura</title>
+  <link rel="stylesheet" href="../assets/css/pages/dashboard.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1><span>Alexandria</span> — Clube de Leitura</h1>
+    <div class="user-info">
+      <span id="userEmail"></span>
+      <span id="userName"></span>
+      <button id="logoutBtn" class="btn-logout">Sair</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="welcome">
+      <h2>Bem-vindo, <span id="userName"></span>!</h2>
+      <p>O que você deseja fazer hoje?</p>
+    </div>
+
+    <div class="cards">
+      <a href="biblioteca.html" class="card">
+        <div class="card-icon">📚</div>
+        <h3>Biblioteca</h3>
+        <p>Explore o acervo de livros disponíveis para leitura</p>
+      </a>
+
+      <a href="grupos.html" class="card">
+        <div class="card-icon">👥</div>
+        <h3>Grupos</h3>
+        <p>Participe de grupos de leitura e compartilhe ideias</p>
+      </a>
+
+      <a href="minhas-leituras.html" class="card">
+        <div class="card-icon">📖</div>
+        <h3>Minhas Leituras</h3>
+        <p>Acompanhe seu progresso nos livros atuais</p>
+      </a>
+
+      <a href="metas.html" class="card">
+        <div class="card-icon">🎯</div>
+        <h3>Metas</h3>
+        <p>Defina e acompanhe suas metas de leitura</p>
+      </a>
+
+      <a href="resenhas.html" class="card">
+        <div class="card-icon">✍️</div>
+        <h3>Resenhas</h3>
+        <p>Leia e escreva resenhas dos livros que você leu</p>
+      </a>
+    </div>
+  </main>
+
+  <script src="../assets/js/utils/constants.js"></script>
+  <script src="../assets/js/api/api.js"></script>
+  <script src="../assets/js/pages/dashboard.js"></script>
+</body>
+</html>
