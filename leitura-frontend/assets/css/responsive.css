@@ -1,0 +1,183 @@
+@media (max-width: 720px) {
+  .topbar {
+    padding: 0 var(--spacing-md);
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .topbar-brand h1 {
+    font-size: var(--font-size-md);
+  }
+
+  .topbar-nav {
+    gap: var(--spacing-xs);
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    padding: var(--spacing-xs) 0;
+  }
+
+  .topbar-nav a {
+    font-size: 11px;
+    padding: var(--spacing-xs) 6px;
+    white-space: nowrap;
+  }
+
+  .topbar-user span {
+    display: none;
+  }
+
+  .btn-logout {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  .page-header h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .grid-2,
+  .grid-3,
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book-info {
+    flex-direction: column;
+  }
+
+  .book-cover {
+    width: 140px;
+    margin: 0 auto;
+  }
+
+  .book-meta h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .book-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .book-status-select {
+    width: 100%;
+  }
+
+  .group-header {
+    flex-direction: column;
+    padding: var(--spacing-lg);
+  }
+
+  .group-header h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .message.me {
+    margin-left: 0;
+  }
+
+  .chat-form {
+    flex-direction: column;
+  }
+
+  .chat-form textarea {
+    width: 100%;
+  }
+
+  .chat-form .btn {
+    width: 100%;
+  }
+
+  #profileContent {
+    max-width: 100%;
+  }
+
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--spacing-lg);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-number {
+    font-size: 28px;
+  }
+
+  .auth-container {
+    padding: var(--spacing-md);
+  }
+
+  .auth-card {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .auth-logo h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .meta-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-search {
+    flex-direction: column;
+  }
+
+  .modal {
+    max-width: 100%;
+    margin: var(--spacing-sm);
+  }
+
+  .review-form-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .review-form-footer input {
+    width: 100%;
+  }
+
+  .book-card-cover {
+    height: 140px;
+  }
+
+  .group-card {
+    padding: var(--spacing-lg);
+  }
+
+  .welcome h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  .book-detail {
+    padding: var(--spacing-lg);
+  }
+
+  .chat-section {
+    padding: var(--spacing-md);
+  }
+
+  .messages-list {
+    max-height: 300px;
+  }
+}
