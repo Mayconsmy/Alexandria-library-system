@@ -58,6 +58,12 @@
   gap: var(--spacing-md);
 }
 
+.topbar-avatar svg,
+.topbar-avatar img {
+  border-radius: 50%;
+  display: block;
+}
+
 .topbar-user span {
   font-size: var(--font-size-sm);
   color: #ccc;

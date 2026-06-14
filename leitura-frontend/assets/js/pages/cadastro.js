@@ -1,3 +1,5 @@
+let avatarConfig = null;
+
 async function handleCadastro(event) {
   event.preventDefault();
 
@@ -20,7 +22,9 @@ async function handleCadastro(event) {
   submitBtn.textContent = 'Cadastrando...';
 
   try {
-    await cadastrar(nome, email, senha);
+    const body = { nome, email, senha };
+    if (avatarConfig) body.fotoPerfil = JSON.stringify(avatarConfig);
+    await apiPost('/auth/cadastro', body);
     alert('Cadastro realizado com sucesso! Faça login para continuar.');
     window.location.href = '/';
   } catch (err) {
@@ -35,4 +39,5 @@ async function handleCadastro(event) {
 document.addEventListener('DOMContentLoaded', () => {
   if (redirectIfAuth()) return;
   document.getElementById('cadastroForm').addEventListener('submit', handleCadastro);
+  avatarConfig = renderAvatarOptions('avatarBuilder', null, (cfg) => { avatarConfig = cfg; });
 });

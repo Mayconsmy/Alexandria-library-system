@@ -1,6 +1,6 @@
 async function login(email, senha) {
   const data = await apiPost('/auth/login', { email, senha });
-  saveAuth(data.token, { id: data.id, nome: data.nome, email: data.email });
+  saveAuth(data.token, { id: data.id, nome: data.nome, email: data.email, fotoPerfil: data.fotoPerfil });
   return data;
 }
 

@@ -1,3 +1,5 @@
+let editAvatarConfig = null;
+
 async function loadProfile() {
   const user = getUser();
   const loading = document.getElementById('loading');
@@ -17,6 +19,9 @@ async function loadProfile() {
     document.getElementById('profileType').textContent = `Tipo: ${profile.tipoPerfil || 'leitor'}`;
     document.getElementById('profileSince').textContent = `Membro desde ${formatDate(profile.dataCadastro)}`;
 
+    const avatarConfig = getAvatarConfig(profile.fotoPerfil);
+    renderAvatar('profileAvatar', avatarConfig, 96);
+
     document.getElementById('statLidos').textContent = stats.livrosLidos || 0;
     document.getElementById('statLendo').textContent = stats.livrosEmLeitura || 0;
     document.getElementById('statDesejados').textContent = stats.livrosDesejados || 0;
@@ -31,6 +36,7 @@ async function loadProfile() {
 
 function showEditProfileModal() {
   const user = getUser();
+  editAvatarConfig = getAvatarConfig(user.fotoPerfil);
 
   openModal('Editar Perfil', `
     <div class="form-group">
@@ -38,17 +44,18 @@ function showEditProfileModal() {
       <input type="text" id="editNome" value="${escapeHtml(user.nome)}" required>
     </div>
     <div class="form-group">
-      <label>Foto de perfil (URL)</label>
-      <input type="url" id="editFoto" placeholder="https://exemplo.com/foto.jpg">
+      <label>Personalize seu Avatar</label>
+      <div id="editAvatarBuilder"></div>
     </div>
   `, `
     <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
     <button class="btn btn-primary" id="confirmEditProfile">Salvar</button>
   `);
 
+  renderAvatarOptions('editAvatarBuilder', editAvatarConfig, (cfg) => { editAvatarConfig = cfg; });
+
   document.getElementById('confirmEditProfile').addEventListener('click', async () => {
     const nome = document.getElementById('editNome').value.trim();
-    const fotoPerfil = document.getElementById('editFoto').value.trim() || null;
 
     if (!nome) {
       showToast('Nome é obrigatório', 'warning');
@@ -56,6 +63,7 @@ function showEditProfileModal() {
     }
 
     try {
+      const fotoPerfil = editAvatarConfig ? JSON.stringify(editAvatarConfig) : null;
       const updated = await atualizarUsuario(user.id, {
         id: user.id,
         nome,
@@ -63,7 +71,8 @@ function showEditProfileModal() {
         email: user.email,
       });
 
-      saveAuth(getToken(), { id: user.id, nome: updated.nome, email: user.email });
+      const currentUser = getUser();
+      saveAuth(getToken(), { ...currentUser, nome: updated.nome, fotoPerfil: updated.fotoPerfil });
       closeModal();
       showToast('Perfil atualizado!', 'success');
       loadProfile();

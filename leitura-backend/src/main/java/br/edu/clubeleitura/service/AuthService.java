@@ -64,6 +64,7 @@ public class AuthService {
                 .email(usuario.getEmail())
                 .nome(usuario.getNome())
                 .id(usuario.getId())
+                .fotoPerfil(usuario.getFotoPerfil())
                 .build();
     }
 

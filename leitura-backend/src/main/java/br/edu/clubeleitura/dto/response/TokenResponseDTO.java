@@ -11,4 +11,5 @@ public class TokenResponseDTO {
     private String email;
     private String nome;
     private Integer id;
+    private String fotoPerfil;
 }

@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../assets/css/global.css">
   <link rel="stylesheet" href="../assets/css/components/form.css">
   <link rel="stylesheet" href="../assets/css/pages/auth.css">
+  <link rel="stylesheet" href="../assets/css/components/avatar.css">
   <link rel="stylesheet" href="../assets/css/responsive.css">
 </head>
 <body class="auth-page">
@@ -43,6 +44,11 @@
           <input type="password" id="confirmSenha" placeholder="Repita a senha" required minlength="8">
         </div>
 
+        <div class="form-group">
+          <label>Personalize seu Avatar</label>
+          <div id="avatarBuilder"></div>
+        </div>
+
         <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
       </form>
 
@@ -57,6 +63,7 @@
   <script src="../assets/js/utils/format.utils.js"></script>
   <script src="../assets/js/api/http.js"></script>
   <script src="../assets/js/api/auth.api.js"></script>
+  <script src="../assets/js/components/avatar.js"></script>
   <script src="../assets/js/pages/cadastro.js"></script>
 </body>
 </html>

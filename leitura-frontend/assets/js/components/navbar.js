@@ -13,6 +13,9 @@ function renderNavbar(activePage) {
     { href: 'perfil.html', label: 'Perfil', icon: '👤' },
   ];
 
+  const avatarConfig = getAvatarConfig(user.fotoPerfil);
+  const avatarSVG = renderAvatarSVG(avatarConfig, 28);
+
   nav.innerHTML = `
     <div class="topbar-brand">
       <img src="../assets/img/logo.svg" alt="Alexandria">
@@ -24,6 +27,7 @@ function renderNavbar(activePage) {
       `).join('')}
     </nav>
     <div class="topbar-user">
+      <div class="topbar-avatar">${avatarSVG}</div>
       <span>${escapeHtml(user.nome)}</span>
       <button class="btn-logout" onclick="handleLogout()">Sair</button>
     </div>
