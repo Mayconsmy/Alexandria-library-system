@@ -5,6 +5,8 @@ import br.edu.clubeleitura.dto.response.GrupoResponseDTO;
 import br.edu.clubeleitura.exception.ResourceNotFoundException;
 import br.edu.clubeleitura.model.GrupoLeitura;
 import br.edu.clubeleitura.model.Usuario;
+import br.edu.clubeleitura.model.UsuarioGrupo;
+import br.edu.clubeleitura.model.UsuarioGrupoId;
 import br.edu.clubeleitura.repository.GrupoLeituraRepository;
 import br.edu.clubeleitura.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,8 +47,16 @@ public class GrupoLeituraService {
                 .admin(admin)
                 .build();
 
-        grupo.getMembros().add(admin);
         grupo = grupoRepository.save(grupo);
+
+        UsuarioGrupo membro = UsuarioGrupo.builder()
+                .id(new UsuarioGrupoId(admin.getId(), grupo.getId()))
+                .usuario(admin)
+                .grupo(grupo)
+                .build();
+        grupo.getMembros().add(membro);
+        grupo = grupoRepository.save(grupo);
+
         return toResponseDTO(grupo);
     }
 
@@ -57,11 +67,18 @@ public class GrupoLeituraService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado: " + usuarioId));
 
-        if (grupo.getMembros().stream().anyMatch(m -> m.getId().equals(usuarioId))) {
+        boolean jaMembro = grupo.getMembros().stream()
+                .anyMatch(m -> m.getUsuario().getId().equals(usuarioId));
+        if (jaMembro) {
             throw new IllegalArgumentException("Usuário já é membro do grupo");
         }
 
-        grupo.getMembros().add(usuario);
+        UsuarioGrupo membro = UsuarioGrupo.builder()
+                .id(new UsuarioGrupoId(usuario.getId(), grupo.getId()))
+                .usuario(usuario)
+                .grupo(grupo)
+                .build();
+        grupo.getMembros().add(membro);
         grupoRepository.save(grupo);
     }
 

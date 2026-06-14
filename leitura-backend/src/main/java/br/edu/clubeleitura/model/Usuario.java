@@ -47,9 +47,9 @@ public class Usuario {
     @Builder.Default
     private List<Resenha> resenhas = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "membros")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<GrupoLeitura> grupos = new ArrayList<>();
+    private List<UsuarioGrupo> grupos = new ArrayList<>();
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Estatistica estatistica;

@@ -37,14 +37,9 @@ public class GrupoLeitura {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario admin;
 
-    @ManyToMany
-    @JoinTable(
-        name = "usuario_grupo",
-        joinColumns = @JoinColumn(name = "id_grupo_leitura"),
-        inverseJoinColumns = @JoinColumn(name = "id_usuario")
-    )
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<Usuario> membros = new ArrayList<>();
+    private List<UsuarioGrupo> membros = new ArrayList<>();
 
     @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
