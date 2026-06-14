@@ -1,0 +1,110 @@
+.back-link {
+  display: inline-block;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-primary);
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.group-header {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.group-header h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.group-header .text-muted {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.group-header #groupDescription {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-sm);
+}
+
+.chat-section {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.messages-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+}
+
+.message {
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+}
+
+.message.me {
+  background: #e8f0fe;
+  margin-left: 40px;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+}
+
+.message-author {
+  font-weight: 600;
+  font-size: var(--font-size-xs);
+  color: var(--color-primary-dark);
+}
+
+.message-time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.message-content {
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+
+.chat-form {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+}
+
+.chat-form textarea {
+  flex: 1;
+  padding: 10px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  outline: none;
+  resize: none;
+}
+
+.chat-form textarea:focus {
+  border-color: var(--color-border-focus);
+}

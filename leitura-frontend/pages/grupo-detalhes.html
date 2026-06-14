@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo — Clube de Leitura</title>
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/components/navbar.css">
+  <link rel="stylesheet" href="../assets/css/components/card.css">
+  <link rel="stylesheet" href="../assets/css/components/form.css">
+  <link rel="stylesheet" href="../assets/css/components/toast.css">
+  <link rel="stylesheet" href="../assets/css/pages/grupo-detalhes.css">
+</head>
+<body>
+  <header id="topbar" class="topbar"></header>
+
+  <main class="container">
+    <a href="grupos.html" class="back-link">&larr; Voltar para Grupos</a>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Carregando grupo...</p>
+    </div>
+
+    <div id="groupDetail" class="hidden">
+      <div class="group-header">
+        <div>
+          <h2 id="groupName"></h2>
+          <p class="text-muted" id="groupAdmin"></p>
+          <p id="groupDescription"></p>
+          <p class="text-muted" id="groupMembers"></p>
+        </div>
+        <button class="btn btn-primary" id="joinGroupBtn">Entrar no Grupo</button>
+      </div>
+
+      <div class="chat-section">
+        <h3 class="section-title">Mensagens</h3>
+        <div id="messagesList" class="messages-list"></div>
+        <div class="chat-form">
+          <textarea id="messageInput" placeholder="Digite sua mensagem..." rows="2"></textarea>
+          <button class="btn btn-primary" id="sendMessageBtn">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/utils/constants.js"></script>
+  <script src="../assets/js/utils/auth.utils.js"></script>
+  <script src="../assets/js/utils/format.utils.js"></script>
+  <script src="../assets/js/api/http.js"></script>
+  <script src="../assets/js/api/grupos.api.js"></script>
+  <script src="../assets/js/components/navbar.js"></script>
+  <script src="../assets/js/components/toast.js"></script>
+  <script src="../assets/js/pages/grupo-detalhes.js"></script>
+</body>
+</html>

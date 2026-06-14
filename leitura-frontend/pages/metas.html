@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metas — Clube de Leitura</title>
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/components/navbar.css">
+  <link rel="stylesheet" href="../assets/css/components/card.css">
+  <link rel="stylesheet" href="../assets/css/components/form.css">
+  <link rel="stylesheet" href="../assets/css/components/modal.css">
+  <link rel="stylesheet" href="../assets/css/components/toast.css">
+  <link rel="stylesheet" href="../assets/css/pages/metas.css">
+</head>
+<body>
+  <header id="topbar" class="topbar"></header>
+
+  <main class="container">
+    <div class="page-header">
+      <h2>Metas de Leitura</h2>
+      <button class="btn btn-primary" id="createMetaBtn">+ Nova Meta</button>
+    </div>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Carregando metas...</p>
+    </div>
+
+    <div id="emptyState" class="empty-state hidden">
+      <p>Nenhuma meta cadastrada. Crie uma meta para começar!</p>
+    </div>
+
+    <div id="metaList"></div>
+  </main>
+
+  <script src="../assets/js/utils/constants.js"></script>
+  <script src="../assets/js/utils/auth.utils.js"></script>
+  <script src="../assets/js/utils/format.utils.js"></script>
+  <script src="../assets/js/api/http.js"></script>
+  <script src="../assets/js/api/metas.api.js"></script>
+  <script src="../assets/js/components/navbar.js"></script>
+  <script src="../assets/js/components/modal.js"></script>
+  <script src="../assets/js/components/toast.js"></script>
+  <script src="../assets/js/pages/metas.js"></script>
+</body>
+</html>

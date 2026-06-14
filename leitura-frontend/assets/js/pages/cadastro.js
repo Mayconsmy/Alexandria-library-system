@@ -20,11 +20,7 @@ async function handleCadastro(event) {
   submitBtn.textContent = 'Cadastrando...';
 
   try {
-    const data = await apiRequest('/auth/cadastro', {
-      method: 'POST',
-      body: { nome, email, senha },
-    });
-
+    await cadastrar(nome, email, senha);
     alert('Cadastro realizado com sucesso! Faça login para continuar.');
     window.location.href = '/';
   } catch (err) {
@@ -37,9 +33,6 @@ async function handleCadastro(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const token = localStorage.getItem(TOKEN_KEY);
-  if (token) {
-    window.location.href = '/pages/dashboard.html';
-  }
+  if (redirectIfAuth()) return;
   document.getElementById('cadastroForm').addEventListener('submit', handleCadastro);
 });

@@ -4,17 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard — Clube de Leitura</title>
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/components/navbar.css">
+  <link rel="stylesheet" href="../assets/css/components/card.css">
   <link rel="stylesheet" href="../assets/css/pages/dashboard.css">
 </head>
 <body>
-  <header class="topbar">
-    <h1><span>Alexandria</span> — Clube de Leitura</h1>
-    <div class="user-info">
-      <span id="userEmail"></span>
-      <span id="userName"></span>
-      <button id="logoutBtn" class="btn-logout">Sair</button>
-    </div>
-  </header>
+  <header id="topbar" class="topbar"></header>
 
   <main class="container">
     <div class="welcome">
@@ -22,32 +20,32 @@
       <p>O que você deseja fazer hoje?</p>
     </div>
 
-    <div class="cards">
-      <a href="biblioteca.html" class="card">
+    <div class="card-grid">
+      <a href="biblioteca.html" class="card card-clickable">
         <div class="card-icon">📚</div>
         <h3>Biblioteca</h3>
         <p>Explore o acervo de livros disponíveis para leitura</p>
       </a>
 
-      <a href="grupos.html" class="card">
+      <a href="grupos.html" class="card card-clickable">
         <div class="card-icon">👥</div>
         <h3>Grupos</h3>
         <p>Participe de grupos de leitura e compartilhe ideias</p>
       </a>
 
-      <a href="minhas-leituras.html" class="card">
+      <a href="biblioteca.html" class="card card-clickable">
         <div class="card-icon">📖</div>
         <h3>Minhas Leituras</h3>
         <p>Acompanhe seu progresso nos livros atuais</p>
       </a>
 
-      <a href="metas.html" class="card">
+      <a href="metas.html" class="card card-clickable">
         <div class="card-icon">🎯</div>
         <h3>Metas</h3>
         <p>Defina e acompanhe suas metas de leitura</p>
       </a>
 
-      <a href="resenhas.html" class="card">
+      <a href="perfil.html" class="card card-clickable">
         <div class="card-icon">✍️</div>
         <h3>Resenhas</h3>
         <p>Leia e escreva resenhas dos livros que você leu</p>
@@ -56,7 +54,11 @@
   </main>
 
   <script src="../assets/js/utils/constants.js"></script>
-  <script src="../assets/js/api/api.js"></script>
+  <script src="../assets/js/utils/auth.utils.js"></script>
+  <script src="../assets/js/utils/format.utils.js"></script>
+  <script src="../assets/js/api/http.js"></script>
+  <script src="../assets/js/api/auth.api.js"></script>
+  <script src="../assets/js/components/navbar.js"></script>
   <script src="../assets/js/pages/dashboard.js"></script>
 </body>
 </html>

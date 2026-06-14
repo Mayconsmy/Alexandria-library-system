@@ -1,0 +1,56 @@
+#metaList {
+  margin-top: var(--spacing-lg);
+}
+
+.meta-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.meta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.meta-header h3 {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary-dark);
+}
+
+.meta-prazo {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.meta-progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-bg);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary-light);
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.progress-fill.complete {
+  background: var(--color-success-text);
+}

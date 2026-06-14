@@ -1,0 +1,61 @@
+#bookGrid {
+  margin-top: var(--spacing-lg);
+}
+
+.book-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.book-card-cover {
+  height: 180px;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+}
+
+.book-card-cover img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.book-card-body {
+  padding: var(--spacing-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card-body h3 {
+  font-size: var(--font-size-md);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.book-card-body .author {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.book-card-body .genre {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary-light);
+  font-weight: 600;
+  margin-top: auto;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil — Clube de Leitura</title>
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/components/navbar.css">
+  <link rel="stylesheet" href="../assets/css/components/card.css">
+  <link rel="stylesheet" href="../assets/css/components/form.css">
+  <link rel="stylesheet" href="../assets/css/components/modal.css">
+  <link rel="stylesheet" href="../assets/css/components/toast.css">
+  <link rel="stylesheet" href="../assets/css/pages/perfil.css">
+</head>
+<body>
+  <header id="topbar" class="topbar"></header>
+
+  <main class="container">
+    <div class="page-header">
+      <h2>Meu Perfil</h2>
+      <button class="btn btn-primary" id="editProfileBtn">Editar Perfil</button>
+    </div>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Carregando perfil...</p>
+    </div>
+
+    <div id="profileContent" class="hidden">
+      <div class="profile-card">
+        <div class="profile-avatar">
+          <img src="../assets/img/logo.svg" alt="Avatar">
+        </div>
+        <div class="profile-info">
+          <h3 id="profileName"></h3>
+          <p id="profileEmail"></p>
+          <p id="profileType"></p>
+          <p id="profileSince"></p>
+        </div>
+      </div>
+
+      <h3 class="section-title">Estatísticas</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="statLidos">0</div>
+          <div class="stat-label">Livros Lidos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statLendo">0</div>
+          <div class="stat-label">Lendo</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statDesejados">0</div>
+          <div class="stat-label">Quero Ler</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/utils/constants.js"></script>
+  <script src="../assets/js/utils/auth.utils.js"></script>
+  <script src="../assets/js/utils/format.utils.js"></script>
+  <script src="../assets/js/api/http.js"></script>
+  <script src="../assets/js/api/auth.api.js"></script>
+  <script src="../assets/js/api/metas.api.js"></script>
+  <script src="../assets/js/components/navbar.js"></script>
+  <script src="../assets/js/components/modal.js"></script>
+  <script src="../assets/js/components/toast.js"></script>
+  <script src="../assets/js/pages/perfil.js"></script>
+</body>
+</html>

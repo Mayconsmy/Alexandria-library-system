@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro — Clube de Leitura</title>
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/components/form.css">
   <link rel="stylesheet" href="../assets/css/pages/auth.css">
 </head>
-<body>
+<body class="auth-page">
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-logo">
+        <img src="../assets/img/logo.svg" alt="Alexandria" style="width:48px;margin:0 auto 8px;">
         <h1><span>Alexandria</span></h1>
         <p>Crie sua conta</p>
       </div>
@@ -37,7 +42,7 @@
           <input type="password" id="confirmSenha" placeholder="Repita a senha" required minlength="8">
         </div>
 
-        <button type="submit" class="btn-primary">Cadastrar</button>
+        <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
       </form>
 
       <div class="auth-link">
@@ -47,7 +52,10 @@
   </div>
 
   <script src="../assets/js/utils/constants.js"></script>
-  <script src="../assets/js/api/api.js"></script>
+  <script src="../assets/js/utils/auth.utils.js"></script>
+  <script src="../assets/js/utils/format.utils.js"></script>
+  <script src="../assets/js/api/http.js"></script>
+  <script src="../assets/js/api/auth.api.js"></script>
   <script src="../assets/js/pages/cadastro.js"></script>
 </body>
 </html>

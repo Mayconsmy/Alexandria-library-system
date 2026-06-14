@@ -11,18 +11,7 @@ async function handleLogin(event) {
   submitBtn.textContent = 'Entrando...';
 
   try {
-    const data = await apiRequest('/auth/login', {
-      method: 'POST',
-      body: { email, senha },
-    });
-
-    localStorage.setItem(TOKEN_KEY, data.token);
-    localStorage.setItem(USER_KEY, JSON.stringify({
-      id: data.id,
-      nome: data.nome,
-      email: data.email,
-    }));
-
+    await login(email, senha);
     window.location.href = '/pages/dashboard.html';
   } catch (err) {
     errorDiv.textContent = err.message;
@@ -34,9 +23,6 @@ async function handleLogin(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const token = localStorage.getItem(TOKEN_KEY);
-  if (token) {
-    window.location.href = '/pages/dashboard.html';
-  }
+  if (redirectIfAuth()) return;
   document.getElementById('loginForm').addEventListener('submit', handleLogin);
 });
