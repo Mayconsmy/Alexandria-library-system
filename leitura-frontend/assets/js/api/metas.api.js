@@ -6,14 +6,14 @@ async function criarMeta(dados) {
   return apiPost('/metas', dados);
 }
 
-async function listarNotificacoes(usuarioId) {
-  return apiGet(`/notificacoes/usuario/${usuarioId}`);
-}
-
-async function marcarNotificacaoLida(id) {
-  return apiPut(`/notificacoes/${id}/lida`);
-}
-
 async function buscarEstatisticas(usuarioId) {
   return apiGet(`/estatisticas/usuario/${usuarioId}`);
+}
+
+async function atualizarMeta(id, data) {
+  return apiPut(`/metas/${id}`, data);
+}
+
+async function deletarMeta(id) {
+  return apiDelete(`/metas/${id}`);
 }
