@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script>var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');</script>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="light dark">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biblioteca — Clube de Leitura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/reset.css">
   <link rel="stylesheet" href="../assets/css/variables.css">
   <link rel="stylesheet" href="../assets/css/global.css">
   <link rel="stylesheet" href="../assets/css/components/navbar.css">
-  <link rel="stylesheet" href="../assets/css/components/card.css">
   <link rel="stylesheet" href="../assets/css/components/form.css">
   <link rel="stylesheet" href="../assets/css/components/toast.css">
   <link rel="stylesheet" href="../assets/css/pages/biblioteca.css">
@@ -18,13 +23,39 @@
   <header id="topbar" class="topbar"></header>
 
   <main class="container">
-    <div class="page-header">
-      <h2>Biblioteca</h2>
-    </div>
+    <div class="biblioteca-header">
+      <div class="biblioteca-header-top">
+        <div>
+          <h1>Biblioteca</h1>
+          <p class="subtitle">Explore todos os livros disponíveis</p>
+        </div>
+      </div>
 
-    <div class="form-search">
-      <input type="text" id="searchInput" placeholder="Buscar por título, autor ou gênero...">
-      <button class="btn btn-primary" id="searchBtn">Buscar</button>
+      <div class="biblioteca-toolbar">
+        <div class="search-bar">
+          <svg class="search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="searchInput" placeholder="Buscar por título, autor ou gênero...">
+          <button class="search-clear" id="searchClear" title="Limpar busca">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="sort-wrapper">
+          <select id="sortSelect" class="sort-select">
+            <option value="recent">Mais Recentes</option>
+            <option value="title">Título A-Z</option>
+            <option value="author">Autor A-Z</option>
+            <option value="rating">Melhor Avaliados</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="genreFilters" class="genre-filters"></div>
+
+      <div id="statsBar" class="stats-bar hidden">
+        <span id="statsText"></span>
+        <button id="clearFilters" class="clear-filters hidden">Limpar filtros</button>
+      </div>
     </div>
 
     <div id="loading" class="loading">
@@ -33,10 +64,13 @@
     </div>
 
     <div id="emptyState" class="empty-state hidden">
-      <p>Nenhum livro encontrado.</p>
+      <svg class="empty-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+      <h3 class="empty-title">Nenhum livro encontrado</h3>
+      <p class="empty-text" id="emptyMessage">Tente alterar os filtros ou buscar por outro termo.</p>
+      <button class="btn btn-primary" id="emptyResetBtn">Limpar todos os filtros</button>
     </div>
 
-    <div id="bookGrid" class="card-grid"></div>
+    <div id="bookGrid" class="book-grid"></div>
   </main>
 
   <script src="../assets/js/utils/constants.js"></script>
