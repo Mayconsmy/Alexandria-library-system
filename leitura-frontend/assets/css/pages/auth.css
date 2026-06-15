@@ -1,5 +1,5 @@
 body.auth-page {
-  background: linear-gradient(135deg, var(--color-primary-dark) 0%, #16213e 50%, var(--color-primary) 100%);
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-dark) 50%, var(--color-primary) 100%);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -26,7 +26,7 @@ body.auth-page {
 
 .auth-logo h1 {
   font-size: var(--font-size-3xl);
-  color: var(--color-primary-dark);
+  color: var(--color-text);
   letter-spacing: 1px;
 }
 
