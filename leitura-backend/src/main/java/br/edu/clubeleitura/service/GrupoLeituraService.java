@@ -61,6 +61,31 @@ public class GrupoLeituraService {
     }
 
     @Transactional
+    public void sair(Integer grupoId, Integer usuarioId) {
+        GrupoLeitura grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Grupo não encontrado: " + grupoId));
+
+        boolean eraMembro = grupo.getMembros().removeIf(m -> m.getUsuario().getId().equals(usuarioId));
+        if (!eraMembro) {
+            throw new IllegalArgumentException("Usuário não é membro do grupo");
+        }
+
+        grupoRepository.save(grupo);
+    }
+
+    public boolean isMembro(Integer grupoId, Integer usuarioId) {
+        GrupoLeitura grupo = grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Grupo não encontrado: " + grupoId));
+        return grupo.getMembros().stream()
+                .anyMatch(m -> m.getUsuario().getId().equals(usuarioId));
+    }
+
+    public List<GrupoResponseDTO> listarPorUsuario(Integer usuarioId) {
+        return grupoRepository.findByUsuarioId(usuarioId).stream()
+                .map(this::toResponseDTO).toList();
+    }
+
+    @Transactional
     public void entrar(Integer grupoId, Integer usuarioId) {
         GrupoLeitura grupo = grupoRepository.findById(grupoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Grupo não encontrado: " + grupoId));

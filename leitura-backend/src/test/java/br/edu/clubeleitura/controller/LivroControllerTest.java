@@ -42,7 +42,7 @@ class LivroControllerTest {
                 .tipo("livro")
                 .build();
 
-        when(livroService.listar(null, null, null)).thenReturn(List.of(livro));
+        when(livroService.listar(null, null, null, null, null, null)).thenReturn(List.of(livro));
 
         mockMvc.perform(get("/api/livros"))
                 .andExpect(status().isOk())
@@ -58,7 +58,7 @@ class LivroControllerTest {
                 .autor("Machado de Assis")
                 .build();
 
-        when(livroService.listar(eq("Dom"), isNull(), isNull())).thenReturn(List.of(livro));
+        when(livroService.listar(eq("Dom"), isNull(), isNull(), isNull(), isNull(), isNull())).thenReturn(List.of(livro));
 
         mockMvc.perform(get("/api/livros?titulo=Dom"))
                 .andExpect(status().isOk())
@@ -103,7 +103,7 @@ class LivroControllerTest {
         when(livroService.criar(any(LivroRequestDTO.class))).thenReturn(response);
 
         LivroRequestDTO request = new LivroRequestDTO("Novo Livro", "Novo Autor", "Ficção",
-                "Descrição", "livro", LocalDate.of(2024, 1, 1));
+                "Descrição", null, "livro", LocalDate.of(2024, 1, 1));
 
         mockMvc.perform(post("/api/livros")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -114,7 +114,7 @@ class LivroControllerTest {
 
     @Test
     void criar_comDadosInvalidos_deveRetornar400() throws Exception {
-        LivroRequestDTO request = new LivroRequestDTO("", "", null, null, null, null);
+        LivroRequestDTO request = new LivroRequestDTO("", "", null, null, null, null, null);
 
         mockMvc.perform(post("/api/livros")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -24,9 +24,22 @@ public class ResenhaService {
     private final ReacaoRepository reacaoRepository;
     private final UsuarioRepository usuarioRepository;
     private final LivroRepository livroRepository;
+    private final EstatisticaService estatisticaService;
 
     public List<ResenhaResponseDTO> listarPorLivro(Integer livroId) {
         return resenhaRepository.findByLivroId(livroId).stream()
+                .map(this::toResponseDTO).toList();
+    }
+
+    public List<ResenhaResponseDTO> listarPorUsuario(Integer usuarioId, String busca, Integer estrelas) {
+        List<Resenha> resenhas = resenhaRepository.findByUsuarioIdWithLivro(usuarioId);
+        return resenhas.stream()
+                .filter(r -> busca == null || busca.isBlank() ||
+                        r.getTexto().toLowerCase().contains(busca.toLowerCase()) ||
+                        r.getLivro().getTitulo().toLowerCase().contains(busca.toLowerCase()) ||
+                        r.getLivro().getAutor().toLowerCase().contains(busca.toLowerCase()) ||
+                        (r.getLivro().getGenero() != null && r.getLivro().getGenero().toLowerCase().contains(busca.toLowerCase())))
+                .filter(r -> estrelas == null || (r.getNota() != null && Math.round(r.getNota()) == estrelas))
                 .map(this::toResponseDTO).toList();
     }
 
@@ -45,6 +58,7 @@ public class ResenhaService {
                 .build();
 
         resenha = resenhaRepository.save(resenha);
+        estatisticaService.atualizarContadores(dto.getIdUsuario());
         return toResponseDTO(resenha);
     }
 
@@ -57,15 +71,17 @@ public class ResenhaService {
         if (dto.getNota() != null) resenha.setNota(dto.getNota());
 
         resenha = resenhaRepository.save(resenha);
+        estatisticaService.atualizarContadores(resenha.getUsuario().getId());
         return toResponseDTO(resenha);
     }
 
     @Transactional
     public void deletar(Integer id) {
-        if (!resenhaRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Resenha não encontrada: " + id);
-        }
+        Resenha resenha = resenhaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Resenha nao encontrada: " + id));
+        Integer usuarioId = resenha.getUsuario().getId();
         resenhaRepository.deleteById(id);
+        estatisticaService.atualizarContadores(usuarioId);
     }
 
     private ResenhaResponseDTO toResponseDTO(Resenha resenha) {
@@ -77,6 +93,7 @@ public class ResenhaService {
                 .tituloLivro(resenha.getLivro().getTitulo())
                 .texto(resenha.getTexto())
                 .nota(resenha.getNota())
+                .fotoPerfil(resenha.getUsuario().getFotoPerfil())
                 .data(resenha.getData())
                 .qtdReacoes(reacaoRepository.countByResenhaId(resenha.getId()))
                 .build();

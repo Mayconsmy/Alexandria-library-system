@@ -44,4 +44,24 @@ public class GrupoLeituraController {
         grupoService.entrar(id, body.get("idUsuario"));
         return ResponseEntity.ok(Map.of("status", "success", "data", "Ingresso realizado com sucesso"));
     }
+
+    @PostMapping("/{id}/sair")
+    public ResponseEntity<Map<String, Object>> sair(@PathVariable Integer id,
+                                                     @RequestBody Map<String, Integer> body) {
+        grupoService.sair(id, body.get("idUsuario"));
+        return ResponseEntity.ok(Map.of("status", "success", "data", "Saída realizada com sucesso"));
+    }
+
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<Map<String, Object>> listarPorUsuario(@PathVariable Integer id) {
+        List<GrupoResponseDTO> grupos = grupoService.listarPorUsuario(id);
+        return ResponseEntity.ok(Map.of("status", "success", "data", grupos));
+    }
+
+    @GetMapping("/{id}/membro/{usuarioId}")
+    public ResponseEntity<Map<String, Object>> isMembro(@PathVariable Integer id,
+                                                         @PathVariable Integer usuarioId) {
+        boolean membro = grupoService.isMembro(id, usuarioId);
+        return ResponseEntity.ok(Map.of("status", "success", "data", membro));
+    }
 }

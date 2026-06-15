@@ -23,8 +23,11 @@ public class LivroController {
     public ResponseEntity<Map<String, Object>> listar(
             @RequestParam(required = false) String titulo,
             @RequestParam(required = false) String autor,
-            @RequestParam(required = false) String genero) {
-        List<LivroResponseDTO> livros = livroService.listar(titulo, autor, genero);
+            @RequestParam(required = false) String genero,
+            @RequestParam(required = false) String editora,
+            @RequestParam(required = false) String descricao,
+            @RequestParam(required = false) String busca) {
+        List<LivroResponseDTO> livros = livroService.listar(titulo, autor, genero, editora, descricao, busca);
         return ResponseEntity.ok(Map.of("status", "success", "data", livros));
     }
 

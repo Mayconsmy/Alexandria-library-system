@@ -1,6 +1,7 @@
 package br.edu.clubeleitura.service;
 
 import br.edu.clubeleitura.dto.response.MensagemResponseDTO;
+import br.edu.clubeleitura.exception.AcessoNegadoException;
 import br.edu.clubeleitura.exception.ResourceNotFoundException;
 import br.edu.clubeleitura.model.GrupoLeitura;
 import br.edu.clubeleitura.model.Mensagem;
@@ -33,6 +34,12 @@ public class MensagemService {
                 .orElseThrow(() -> new ResourceNotFoundException("Grupo não encontrado"));
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+
+        boolean isMembro = grupo.getMembros().stream()
+                .anyMatch(m -> m.getUsuario().getId().equals(usuarioId));
+        if (!isMembro) {
+            throw new AcessoNegadoException("Você não é membro deste grupo");
+        }
 
         Mensagem mensagem = Mensagem.builder()
                 .usuario(usuario)

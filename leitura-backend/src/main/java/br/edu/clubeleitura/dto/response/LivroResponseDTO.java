@@ -13,6 +13,7 @@ public class LivroResponseDTO {
     private String autor;
     private String genero;
     private String descricao;
+    private String editora;
     private String tipo;
     private LocalDate dataPublicacao;
 }

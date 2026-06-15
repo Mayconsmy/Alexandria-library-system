@@ -31,4 +31,17 @@ public class MetaLeituraController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Map.of("status", "success", "data", meta));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> atualizar(@PathVariable Integer id,
+                                                          @Valid @RequestBody MetaRequestDTO dto) {
+        MetaResponseDTO meta = metaService.atualizar(id, dto);
+        return ResponseEntity.ok(Map.of("status", "success", "data", meta));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> deletar(@PathVariable Integer id) {
+        metaService.deletar(id);
+        return ResponseEntity.ok(Map.of("status", "success", "data", "Meta removida com sucesso"));
+    }
 }

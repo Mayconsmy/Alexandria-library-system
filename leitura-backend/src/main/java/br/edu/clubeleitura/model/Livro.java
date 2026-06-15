@@ -31,6 +31,9 @@ public class Livro {
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
 
+    @Column(name = "editora", length = 150)
+    private String editora;
+
     @Column(name = "tipo", length = 50)
     @Builder.Default
     private String tipo = "livro";

@@ -6,6 +6,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: clube_leitura
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
     ports:
       - "3306:3306"
     volumes:
@@ -24,7 +26,7 @@ services:
       dockerfile: Dockerfile
     container_name: clube-leitura-api
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/clube_leitura?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Fortaleza
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/clube_leitura?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Fortaleza&useUnicode=true&characterEncoding=UTF-8
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       APP_JWT_SECRET: clube-leitura-secret-key-2026-deve-ter-ao-menos-256-bits-de-comprimento

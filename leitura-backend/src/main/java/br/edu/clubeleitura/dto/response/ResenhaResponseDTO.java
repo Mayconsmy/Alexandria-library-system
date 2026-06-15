@@ -15,6 +15,7 @@ public class ResenhaResponseDTO {
     private String tituloLivro;
     private String texto;
     private Float nota;
+    private String fotoPerfil;
     private LocalDate data;
     private Long qtdReacoes;
 }

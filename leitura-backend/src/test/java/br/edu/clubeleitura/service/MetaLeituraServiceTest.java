@@ -14,7 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +42,7 @@ class MetaLeituraServiceTest {
                 .id(1)
                 .usuario(usuario)
                 .quantidadeLivros(12)
-                .prazo(LocalDateTime.now().plusMonths(6))
+                .prazo(LocalDate.now().plusMonths(6))
                 .progresso(0)
                 .build();
     }
@@ -60,7 +60,7 @@ class MetaLeituraServiceTest {
 
     @Test
     void criar_comDadosValidos_deveCriarMeta() {
-        MetaRequestDTO dto = new MetaRequestDTO(1, 12, LocalDateTime.now().plusMonths(6));
+        MetaRequestDTO dto = new MetaRequestDTO(1, 12, LocalDate.now().plusMonths(6));
 
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
         when(metaRepository.save(any(MetaLeitura.class))).thenReturn(meta);
@@ -75,7 +75,7 @@ class MetaLeituraServiceTest {
 
     @Test
     void criar_comUsuarioInexistente_deveLancarResourceNotFoundException() {
-        MetaRequestDTO dto = new MetaRequestDTO(99, 12, LocalDateTime.now().plusMonths(6));
+        MetaRequestDTO dto = new MetaRequestDTO(99, 12, LocalDate.now().plusMonths(6));
 
         when(usuarioRepository.findById(99)).thenReturn(Optional.empty());
 
@@ -85,7 +85,7 @@ class MetaLeituraServiceTest {
 
     @Test
     void criar_metaComPrazoNoPassado_deveCriarNormalmente() {
-        LocalDateTime prazoPassado = LocalDateTime.now().minusDays(1);
+        LocalDate prazoPassado = LocalDate.now().minusDays(1);
         MetaRequestDTO dto = new MetaRequestDTO(1, 5, prazoPassado);
 
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
@@ -104,7 +104,7 @@ class MetaLeituraServiceTest {
 
         assertNotNull(result);
         assertEquals(5, result.getQuantidadeLivros());
-        assertTrue(result.getPrazo().isBefore(LocalDateTime.now()));
+        assertTrue(result.getPrazo().isBefore(LocalDate.now()));
         verify(metaRepository).save(any(MetaLeitura.class));
     }
 }

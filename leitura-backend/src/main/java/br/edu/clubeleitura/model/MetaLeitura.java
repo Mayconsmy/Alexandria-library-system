@@ -3,7 +3,7 @@ package br.edu.clubeleitura.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "meta_leitura")
@@ -25,7 +25,7 @@ public class MetaLeitura {
     private Integer quantidadeLivros;
 
     @Column(nullable = false)
-    private LocalDateTime prazo;
+    private LocalDate prazo;
 
     @Column
     @Builder.Default
