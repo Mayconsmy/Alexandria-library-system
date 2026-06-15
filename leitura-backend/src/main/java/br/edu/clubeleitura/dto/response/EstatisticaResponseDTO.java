@@ -11,4 +11,8 @@ public class EstatisticaResponseDTO {
     private Integer livrosLidos;
     private Integer livrosEmLeitura;
     private Integer livrosDesejados;
+    private Integer livrosAbandonados;
+    private Integer livrosRelendo;
+    private Integer totalAvaliacoes;
+    private Double mediaAvaliacoes;
 }

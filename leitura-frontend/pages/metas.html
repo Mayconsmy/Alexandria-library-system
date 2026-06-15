@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script>var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');</script>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="light dark">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Metas — Clube de Leitura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/reset.css">
   <link rel="stylesheet" href="../assets/css/variables.css">
   <link rel="stylesheet" href="../assets/css/global.css">
   <link rel="stylesheet" href="../assets/css/components/navbar.css">
-  <link rel="stylesheet" href="../assets/css/components/card.css">
   <link rel="stylesheet" href="../assets/css/components/form.css">
   <link rel="stylesheet" href="../assets/css/components/modal.css">
   <link rel="stylesheet" href="../assets/css/components/toast.css">
@@ -24,13 +29,31 @@
       <button class="btn btn-primary" id="createMetaBtn">+ Nova Meta</button>
     </div>
 
+    <div id="metasSummary" class="metas-summary hidden">
+      <div class="metas-summary-card glass">
+        <span class="metas-summary-value" id="summaryTotal">0</span>
+        <span class="metas-summary-label">Total de Metas</span>
+      </div>
+      <div class="metas-summary-card glass">
+        <span class="metas-summary-value" id="summaryActive">0</span>
+        <span class="metas-summary-label">Em Andamento</span>
+      </div>
+      <div class="metas-summary-card glass">
+        <span class="metas-summary-value" id="summaryComplete">0</span>
+        <span class="metas-summary-label">Concluídas</span>
+      </div>
+    </div>
+
     <div id="loading" class="loading">
       <div class="spinner"></div>
       <p>Carregando metas...</p>
     </div>
 
     <div id="emptyState" class="empty-state hidden">
-      <p>Nenhuma meta cadastrada. Crie uma meta para começar!</p>
+      <svg class="empty-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      <h3 class="empty-title">Nenhuma meta cadastrada</h3>
+      <p class="empty-text">Crie uma meta para começar a acompanhar seu progresso de leitura!</p>
+      <button class="btn btn-primary" id="emptyCreateBtn" style="margin-top:var(--spacing-lg)">Criar Primeira Meta</button>
     </div>
 
     <div id="metaList"></div>

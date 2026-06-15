@@ -2,7 +2,7 @@ package br.edu.clubeleitura.dto.response;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
@@ -12,6 +12,6 @@ public class MetaResponseDTO {
     private Integer idUsuario;
     private String nomeUsuario;
     private Integer quantidadeLivros;
-    private LocalDateTime prazo;
+    private LocalDate prazo;
     private Integer progresso;
 }

@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script>var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');</script>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="light dark">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grupo — Clube de Leitura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/reset.css">
   <link rel="stylesheet" href="../assets/css/variables.css">
   <link rel="stylesheet" href="../assets/css/global.css">
   <link rel="stylesheet" href="../assets/css/components/navbar.css">
-  <link rel="stylesheet" href="../assets/css/components/card.css">
   <link rel="stylesheet" href="../assets/css/components/form.css">
   <link rel="stylesheet" href="../assets/css/components/toast.css">
   <link rel="stylesheet" href="../assets/css/pages/grupo-detalhes.css">
@@ -18,7 +23,7 @@
   <header id="topbar" class="topbar"></header>
 
   <main class="container">
-    <a href="grupos.html" class="back-link">&larr; Voltar para Grupos</a>
+    <a href="grupos.html" class="back-link">Voltar para Grupos</a>
 
     <div id="loading" class="loading">
       <div class="spinner"></div>
@@ -26,22 +31,60 @@
     </div>
 
     <div id="groupDetail" class="hidden">
-      <div class="group-header">
-        <div>
-          <h2 id="groupName"></h2>
-          <p class="text-muted" id="groupAdmin"></p>
-          <p id="groupDescription"></p>
-          <p class="text-muted" id="groupMembers"></p>
+      <!-- Header -->
+      <div class="group-detail-header">
+        <div class="group-detail-banner">
+          <div class="group-detail-banner-bg"></div>
+          <div class="group-detail-banner-content">
+            <div class="group-detail-avatar" id="groupAvatar">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="group-detail-title-area">
+              <h1 id="groupName"></h1>
+              <div class="group-detail-meta">
+                <span class="group-detail-admin" id="groupAdmin"></span>
+                <span class="group-detail-members" id="groupMembers"></span>
+                <span class="group-detail-visibility" id="groupVisibility"></span>
+              </div>
+            </div>
+          </div>
         </div>
-        <button class="btn btn-primary" id="joinGroupBtn">Entrar no Grupo</button>
       </div>
 
-      <div class="chat-section">
-        <h3 class="section-title">Mensagens</h3>
-        <div id="messagesList" class="messages-list"></div>
-        <div class="chat-form">
-          <textarea id="messageInput" placeholder="Digite sua mensagem..." rows="2"></textarea>
-          <button class="btn btn-primary" id="sendMessageBtn">Enviar</button>
+      <!-- Info + Action -->
+      <div class="group-detail-info">
+        <div class="group-detail-desc">
+          <h3 class="section-title">Sobre o grupo</h3>
+          <p id="groupDescription"></p>
+        </div>
+        <div class="group-detail-action">
+          <button class="group-action-btn" id="joinGroupBtn">
+            <span class="group-action-btn-text">Entrar no Grupo</span>
+            <svg class="group-action-btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Chat -->
+      <div class="chat-section" id="chatSection">
+        <div class="chat-header">
+          <h3 class="section-title">Conversa do Grupo</h3>
+          <span class="chat-member-count" id="chatMemberCount"></span>
+        </div>
+        <div id="messagesList" class="messages-list">
+          <div class="messages-empty">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <p>Nenhuma mensagem ainda. Seja o primeiro a conversar!</p>
+          </div>
+        </div>
+        <div class="chat-form" id="chatForm">
+          <div class="chat-form-avatar" id="chatFormAvatar"></div>
+          <div class="chat-form-input">
+            <textarea id="messageInput" placeholder="Digite sua mensagem..." rows="1"></textarea>
+            <button class="chat-send-btn" id="sendMessageBtn" title="Enviar">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m22 2-11 20L9 15l-2-2-7-2zm0 0L9 15"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>

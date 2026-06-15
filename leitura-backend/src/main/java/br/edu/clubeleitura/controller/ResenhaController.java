@@ -25,6 +25,14 @@ public class ResenhaController {
         return ResponseEntity.ok(Map.of("status", "success", "data", resenhas));
     }
 
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<Map<String, Object>> listarPorUsuario(@PathVariable Integer id,
+                                                                  @RequestParam(required = false) String busca,
+                                                                  @RequestParam(required = false) Integer estrelas) {
+        List<ResenhaResponseDTO> resenhas = resenhaService.listarPorUsuario(id, busca, estrelas);
+        return ResponseEntity.ok(Map.of("status", "success", "data", resenhas));
+    }
+
     @PostMapping
     public ResponseEntity<Map<String, Object>> criar(@Valid @RequestBody ResenhaRequestDTO dto) {
         ResenhaResponseDTO resenha = resenhaService.criar(dto);

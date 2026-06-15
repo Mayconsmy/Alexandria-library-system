@@ -5,12 +5,11 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class MetaRequestDTO {
-
     @NotNull(message = "ID do usuário é obrigatório")
     private Integer idUsuario;
 
@@ -18,6 +17,5 @@ public class MetaRequestDTO {
     private Integer quantidadeLivros;
 
     @NotNull(message = "Prazo é obrigatório")
-    @Future(message = "Prazo deve estar no futuro")
-    private LocalDateTime prazo;
+    private LocalDate prazo;
 }

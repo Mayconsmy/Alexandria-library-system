@@ -22,3 +22,15 @@ async function listarMensagens(grupoId) {
 async function enviarMensagem(grupoId, dados) {
   return apiPost(`/grupos/${grupoId}/mensagens`, dados);
 }
+
+async function listarGruposPorUsuario(usuarioId) {
+  return apiGet(`/grupos/usuario/${usuarioId}`);
+}
+
+async function verificarMembro(grupoId, usuarioId) {
+  return apiGet(`/grupos/${grupoId}/membro/${usuarioId}`);
+}
+
+async function sairGrupo(grupoId, usuarioId) {
+  return apiPost(`/grupos/${grupoId}/sair`, { idUsuario: usuarioId });
+}

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -23,6 +24,16 @@ public class LeituraController {
     public ResponseEntity<Map<String, Object>> listarPorUsuario(@PathVariable Integer id) {
         List<LeituraResponseDTO> leituras = leituraService.listarPorUsuario(id);
         return ResponseEntity.ok(Map.of("status", "success", "data", leituras));
+    }
+
+    @GetMapping("/usuario/{usuarioId}/livro/{livroId}")
+    public ResponseEntity<Map<String, Object>> buscarPorUsuarioELivro(@PathVariable Integer usuarioId,
+                                                                       @PathVariable Integer livroId) {
+        var leitura = leituraService.buscarPorUsuarioELivro(usuarioId, livroId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("data", leitura.orElse(null));
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping

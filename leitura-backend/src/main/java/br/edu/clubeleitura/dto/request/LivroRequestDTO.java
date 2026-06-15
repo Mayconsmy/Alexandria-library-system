@@ -17,6 +17,7 @@ public class LivroRequestDTO {
 
     private String genero;
     private String descricao;
+    private String editora;
     private String tipo;
     private LocalDate dataPublicacao;
 }

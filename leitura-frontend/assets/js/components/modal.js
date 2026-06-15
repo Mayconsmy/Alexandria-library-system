@@ -21,6 +21,10 @@ function openModal(title, bodyHtml, footerHtml = '') {
   });
 
   document.body.appendChild(overlay);
+
+  const autoFocusEl = overlay.querySelector('[autofocus]');
+  if (autoFocusEl) autoFocusEl.focus();
+
   return overlay;
 }
 
@@ -28,3 +32,9 @@ function closeModal() {
   const overlay = document.querySelector('.modal-overlay');
   if (overlay) overlay.remove();
 }
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+});

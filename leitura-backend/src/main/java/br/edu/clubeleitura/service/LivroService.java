@@ -17,14 +17,12 @@ public class LivroService {
 
     private final LivroRepository livroRepository;
 
-    public List<LivroResponseDTO> listar(String titulo, String autor, String genero) {
+    public List<LivroResponseDTO> listar(String titulo, String autor, String genero, String editora, String descricao, String busca) {
         List<Livro> livros;
-        if (titulo != null) {
-            livros = livroRepository.findByTituloContainingIgnoreCase(titulo);
-        } else if (autor != null) {
-            livros = livroRepository.findByAutorContainingIgnoreCase(autor);
-        } else if (genero != null) {
-            livros = livroRepository.findByGeneroContainingIgnoreCase(genero);
+        if (busca != null && !busca.isBlank()) {
+            livros = livroRepository.findBySearchTerm(busca);
+        } else if (titulo != null || autor != null || genero != null || editora != null || descricao != null) {
+            livros = livroRepository.findByFilters(titulo, autor, genero, editora, descricao);
         } else {
             livros = livroRepository.findAll();
         }
@@ -44,6 +42,7 @@ public class LivroService {
                 .autor(dto.getAutor())
                 .genero(dto.getGenero())
                 .descricao(dto.getDescricao())
+                .editora(dto.getEditora())
                 .tipo(dto.getTipo() != null ? dto.getTipo() : "livro")
                 .dataPublicacao(dto.getDataPublicacao())
                 .build();
@@ -60,6 +59,7 @@ public class LivroService {
         if (dto.getAutor() != null) livro.setAutor(dto.getAutor());
         if (dto.getGenero() != null) livro.setGenero(dto.getGenero());
         if (dto.getDescricao() != null) livro.setDescricao(dto.getDescricao());
+        if (dto.getEditora() != null) livro.setEditora(dto.getEditora());
         if (dto.getTipo() != null) livro.setTipo(dto.getTipo());
         if (dto.getDataPublicacao() != null) livro.setDataPublicacao(dto.getDataPublicacao());
 
@@ -82,6 +82,7 @@ public class LivroService {
                 .autor(livro.getAutor())
                 .genero(livro.getGenero())
                 .descricao(livro.getDescricao())
+                .editora(livro.getEditora())
                 .tipo(livro.getTipo())
                 .dataPublicacao(livro.getDataPublicacao())
                 .build();

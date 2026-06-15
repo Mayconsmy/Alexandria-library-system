@@ -3,12 +3,12 @@ async function apiRequest(endpoint, options = {}) {
   const token = getToken();
 
   const config = {
+    ...options,
     headers: {
       'Content-Type': 'application/json',
       ...(token && { 'Authorization': `Bearer ${token}` }),
-      ...options.headers,
+      ...(options.headers || {}),
     },
-    ...options,
   };
 
   if (config.body && typeof config.body === 'object' && !(config.body instanceof FormData)) {

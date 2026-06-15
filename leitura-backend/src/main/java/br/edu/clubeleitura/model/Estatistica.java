@@ -30,4 +30,20 @@ public class Estatistica {
     @Column(name = "livros_desejados")
     @Builder.Default
     private Integer livrosDesejados = 0;
+
+    @Column(name = "livros_abandonados")
+    @Builder.Default
+    private Integer livrosAbandonados = 0;
+
+    @Column(name = "livros_relendo")
+    @Builder.Default
+    private Integer livrosRelendo = 0;
+
+    @Column(name = "total_avaliacoes")
+    @Builder.Default
+    private Integer totalAvaliacoes = 0;
+
+    @Column(name = "media_avaliacoes")
+    @Builder.Default
+    private Double mediaAvaliacoes = 0.0;
 }
