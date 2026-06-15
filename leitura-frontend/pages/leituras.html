@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <script>var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');</script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="light dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Leituras — Clube de Leitura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/components/navbar.css">
+  <link rel="stylesheet" href="../assets/css/components/toast.css">
+  <link rel="stylesheet" href="../assets/css/pages/biblioteca.css">
+  <link rel="stylesheet" href="../assets/css/pages/leituras.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+  <header id="topbar" class="topbar"></header>
+
+  <main class="container">
+    <div class="leituras-header">
+      <h1>Minhas Leituras</h1>
+      <p class="subtitle">Acompanhe seu progresso e organize sua estante</p>
+    </div>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Carregando leituras...</p>
+    </div>
+
+    <section id="sectionLendo" class="leitura-section section-lendo hidden">
+      <div class="leitura-section-header">
+        <div class="leitura-section-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div>
+          <h3 class="section-title">Estou Lendo</h3>
+          <p class="section-subtitle">Livros que você está lendo no momento</p>
+        </div>
+        <span class="section-count" id="countLendo">0</span>
+      </div>
+      <div id="lendoGrid" class="book-grid"></div>
+      <div class="section-empty" id="emptyLendo">
+        <p>Nenhum livro em leitura no momento.</p>
+      </div>
+    </section>
+
+    <section id="sectionRelendo" class="leitura-section section-relendo hidden">
+      <div class="leitura-section-header">
+        <div class="leitura-section-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div>
+          <h3 class="section-title">Relendo</h3>
+          <p class="section-subtitle">Livros que você está revisitando</p>
+        </div>
+        <span class="section-count" id="countRelendo">0</span>
+      </div>
+      <div id="relendoGrid" class="book-grid"></div>
+      <div class="section-empty" id="emptyRelendo">
+        <p>Nenhuma releitura no momento.</p>
+      </div>
+    </section>
+
+    <section id="sectionLido" class="leitura-section section-lido hidden">
+      <div class="leitura-section-header">
+        <div class="leitura-section-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <h3 class="section-title">Já Li</h3>
+          <p class="section-subtitle">Livros concluídos com sucesso</p>
+        </div>
+        <span class="section-count" id="countLido">0</span>
+      </div>
+      <div id="lidoGrid" class="book-grid"></div>
+      <div class="section-empty" id="emptyLido">
+        <p>Nenhum livro concluído ainda.</p>
+      </div>
+    </section>
+
+    <section id="sectionQueroLer" class="leitura-section section-quero-ler hidden">
+      <div class="leitura-section-header">
+        <div class="leitura-section-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <div>
+          <h3 class="section-title">Quero Ler</h3>
+          <p class="section-subtitle">Sua lista de desejos literários</p>
+        </div>
+        <span class="section-count" id="countQueroLer">0</span>
+      </div>
+      <div id="queroLerGrid" class="book-grid"></div>
+      <div class="section-empty" id="emptyQueroLer">
+        <p>Nenhum livro na lista de desejos.</p>
+      </div>
+    </section>
+
+    <section id="sectionAbandonado" class="leitura-section section-abandonado hidden">
+      <div class="leitura-section-header">
+        <div class="leitura-section-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+        </div>
+        <div>
+          <h3 class="section-title">Abandonados</h3>
+          <p class="section-subtitle">Livros que você não concluiu</p>
+        </div>
+        <span class="section-count" id="countAbandonado">0</span>
+      </div>
+      <div id="abandonadoGrid" class="book-grid"></div>
+      <div class="section-empty" id="emptyAbandonado">
+        <p>Nenhum livro abandonado.</p>
+      </div>
+    </section>
+
+    <div id="emptyState" class="empty-state hidden">
+      <svg class="empty-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+      <h3 class="empty-title">Nenhuma leitura registrada</h3>
+      <p class="empty-text">Comece explorando a biblioteca e adicione livros às suas listas de leitura.</p>
+      <a href="biblioteca.html" class="btn btn-primary">Explorar Biblioteca</a>
+    </div>
+  </main>
+
+  <script src="../assets/js/utils/constants.js"></script>
+  <script src="../assets/js/utils/auth.utils.js"></script>
+  <script src="../assets/js/utils/format.utils.js"></script>
+  <script src="../assets/js/api/http.js"></script>
+  <script src="../assets/js/api/livros.api.js"></script>
+  <script src="../assets/js/api/leitura.api.js"></script>
+  <script src="../assets/js/components/avatar.js"></script>
+  <script src="../assets/js/components/navbar.js"></script>
+  <script src="../assets/js/components/toast.js"></script>
+  <script src="../assets/js/pages/leituras.js"></script>
+</body>
+</html>
